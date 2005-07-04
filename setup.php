@@ -66,6 +66,9 @@ class SRisks {
 		$q = new DBQuery;
 		$q->dropTable('risks');
 		$q->exec();
+		$q->clear();
+		$q->dropTable('risk_notes');
+		$q->exec();
 		return null;
 	}
 	
