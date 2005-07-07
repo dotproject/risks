@@ -45,7 +45,7 @@ class SRisks {
 		$q->createDefinition($sql);
 		$q->exec();
 
-		$q->clean();
+		$q->clear();
 		$q->createTable('risk_notes');
 		$sql = '(
   `risk_note_id` int(11) NOT NULL auto_increment,
