@@ -41,7 +41,11 @@ $projects = $q->loadHashList();
 
 // setup the title block
 $titleBlock = new CTitleBlock( 'Risks', 'scales.png', $m, "$m.$a" );
-if ($canEdit) {
+$perms = & $AppUI->acl();
+// Use permissions check directly rather than $canEdit, because this 
+// file can be included by other modules, in which case the $canEdit will
+// have a different context.
+if ($perms->checkModule('risks', 'add')) {
 	$titleBlock->addCell(
 		'<input type="submit" class="button" value="'.$AppUI->_('new risk').'">', '',
 		'<form action="?m=risks&a=addedit" method="post">', '</form>'
