@@ -142,7 +142,7 @@ $projects = array_merge(array(0=>array('project_id'=>0)), $projects);
 						<img src="./images/icons/stock_edit-16.png" border="0" width="12" height="12">
 					</a>
 				</TD>
-				<TD style="background-color:#<?php echo $bg; ?>"><?php echo($row[risk_id]); ?>&nbsp</TD>
+				<TD style="background-color:#<?php echo $bg; ?>"><?php echo($row['risk_id']); ?>&nbsp</TD>
 				<TD style="background-color:#<?php echo $bg; ?>"><?php echo($row['task_name']); ?>&nbsp</TD>
 				<TD style="background-color:#<?php echo $bg; ?>">
 					<a href="?m=risks&a=view&risk_id=<?php echo $row['risk_id']; ?>">
