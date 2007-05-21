@@ -2,13 +2,9 @@
 if (!defined('DP_BASE_DIR')){
   die('You should not access this file directly.');
 }
-/*
-Copyright (c) 2005 CaseySoftware, LLC <info@caseysoftware.com> 
-Initial Work:	Richard Thompson - Belfast, Northern Ireland 
-Developers:		Keith Casey - Washington, DC keith@caseysoftware.com 
-				Ivan Peevski - Adelaide, Australia cyberhorse@users.sourceforge.net
-*/
+
 $del = dPgetParam($_POST, 'del', 0);
+$isNotNew = dPgetParam($_POST, 'risk_id', 0);
 
 $risk = new dotProject_AddOn_Risks();
 
@@ -27,7 +23,6 @@ if ($del) {
 		$AppUI->redirect( "m=risks" );
 	}
 } else {
-	$isNotNew = @$_POST['risk_id'];
 	if (!$isNotNew) {
 		$risk->risk_owner = $AppUI->user_id;
 	}

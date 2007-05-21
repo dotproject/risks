@@ -4,6 +4,10 @@ if (!defined('DP_BASE_DIR')){
 }
 GLOBAL $AppUI;
 
+$risk_id = intval( dPgetParam( $_REQUEST, 'risk_id', 0 ) );
+$riskDescription = dPgetParam($_POST, 'risk_note_description', '');
+$note = dPgetParam($_POST, 'note', false);
+
 // check permissions
 $perms =& $AppUI->acl();
 $canEdit = $perms->checkModuleItem( 'risks', 'edit', $risk_id );
@@ -12,19 +16,14 @@ if (! $canEdit)
 
 $viewNotes = false;
 $addNotes = false;
-$risk_id = intval( dPgetParam( $_REQUEST, 'risk_id', 0 ) );
-	
-$note = dPgetParam($_POST, 'note', false);
+
+echo 'vw_notes_add.php - '.$risk_id;
 
 if ($note) {
-	$q = new DBQuery();
-	$q->addTable('risk_notes');
-	$q->addInsert('risk_note_risk', $risk_id);
-	$q->addInsert('risk_note_creator', $AppUI->user_id);
-	$q->addInsert('risk_note_date', 'NOW()', false, true);
-	$q->addInsert('risk_note_description', $_POST['risk_note_description']);
-	$q->exec();
-	$AppUI->setMsg('Note added', UI_MSG_OK);
+	$risk = new dotProject_AddOn_Risks($risk_id);
+	if ($risk->saveNote($AppUI->user_id, $riskDescription)) {
+		$AppUI->setMsg('Note added', UI_MSG_OK);
+	}
 	$AppUI->redirect('m=risks&a=view&risk_id=' . $risk_id);
 }
 

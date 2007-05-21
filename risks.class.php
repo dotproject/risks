@@ -1,4 +1,4 @@
-<?php /* CONTACTS $Id: risks.class.php,v 1.1 2005/07/04 02:10:22 cyberhorse Exp $ */
+<?php /* CONTACTS $Id: risks.class.php,v 1.2 2007/05/21 01:57:50 caseydk Exp $ */
 if (!defined('DP_BASE_DIR')){
   die('You should not access this file directly.');
 }
@@ -18,8 +18,8 @@ class dotProject_AddOn_Risks {
 	var $risk_impact = NULL;
 	var $risk_notes = NULL;
 
-	function CRisk() {
-		// empty constructor
+	function CRisk($riskId = 0) {
+		$this->risk_id = $riskId;
 	}
 
 	function load( $oid ) {
@@ -65,10 +65,28 @@ class dotProject_AddOn_Risks {
 		$q = new DBQuery();
 		$q->setDelete('risks');
 		$q->addWhere('risk_id = ' . $this->risk_id);
-		if (!$q->exec())
+		if (!$q->exec()) {
 			return db_error();
-		else 
+		} else { 
 			return null;
+		}
+	}
+	
+	function saveNote($userId, $riskDescription) {
+		$q = new DBQuery();
+		$q->addTable('risk_notes');
+		$q->addInsert('risk_note_risk', $this->risk_id);
+		$q->addInsert('risk_note_creator', $userId);
+		$q->addInsert('risk_note_date', 'NOW()', false, true);
+		$q->addInsert('risk_note_description', $riskDescription);
+
+print_r($q);
+
+		if (!$q->exec()) {
+			return db_error();
+		} else { 
+			return true;
+		}
 	}
 }
 ?>
