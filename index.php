@@ -1,10 +1,7 @@
 <?php
-/*
-Copyright (c) 2005 CaseySoftware, LLC <info@caseysoftware.com> 
-Initial Work:	Richard Thompson - Belfast, Northern Ireland 
-Developers:		Keith Casey - Washington, DC keith@caseysoftware.com 
-				Ivan Peevski - Adelaide, Australia cyberhorse@users.sourceforge.net
-*/
+if (!defined('DP_BASE_DIR')){
+  die('You should not access this file directly.');
+}
 $AppUI->savePlace();
 
 if (isset( $_GET['where'] )) {
@@ -62,8 +59,9 @@ $y = $AppUI->user_id;
 $q->clear();
 $q->addQuery('*');
 $q->addTable('projects');
-if(isset($_GET['project_id']))
+if(isset($_GET['project_id'])) {
 	$q->addWhere('project_id = ' . $x);
+}	
 	
 $projects = $q->loadList();
 //--- print Table Headers ----//
@@ -96,8 +94,9 @@ $projects = array_merge(array(0=>array('project_id'=>0)), $projects);
 		$q->addGroup('risk_id');
 		$q->addOrder($order);
 
-		if($riskFilter != 0)
+		if($riskFilter != 0) {
 			$q->addWhere('risk_status = ' . $riskFilter);
+		}
 
 		$risks = $q->loadList();
 		
@@ -131,29 +130,25 @@ $projects = array_merge(array(0=>array('project_id'=>0)), $projects);
 					}
 				}
 				
-				
 				?>
-				<TR>
-				<TD nowrap style="background-color:#<?php echo $bg; ?>">
+				<TR style="background-color:#<?php echo $bg; ?>">
+				<TD nowrap>
 					<a href="./index.php?m=risks&a=addedit&risk_id=<? echo($row['risk_id']) ?>">
 						<img src="./images/icons/pencil.gif" border="0" width="12" height="12">
 					</a>
-					<a href="./index.php?m=risks&a=view&tab=1&risk_id=<? echo($row['risk_id']) ?>">
-						<img src="./images/icons/stock_edit-16.png" border="0" width="12" height="12">
-					</a>
 				</TD>
-				<TD style="background-color:#<?php echo $bg; ?>"><?php echo($row['risk_id']); ?>&nbsp</TD>
-				<TD style="background-color:#<?php echo $bg; ?>"><?php echo($row['task_name']); ?>&nbsp</TD>
-				<TD style="background-color:#<?php echo $bg; ?>">
+				<TD ><?php echo($row['risk_id']); ?>&nbsp</TD>
+				<TD><?php echo($row['task_name']); ?>&nbsp</TD>
+				<TD>
 					<a href="?m=risks&a=view&risk_id=<?php echo $row['risk_id']; ?>">
 						<?php echo($row['risk_name']); ?>
 					</a> &nbsp
 				</TD>
-				<TD style="background-color:#<?php echo $bg; ?>"><?php echo($row['risk_probability']); ?>% &nbsp</TD>
-				<TD style="background-color:#<?php echo $bg; ?>"><?php echo $row['risk_impact'] . ' ' . $durnTypes[$row['risk_duration_type']]; ?> &nbsp</TD>
-				<TD style="background-color:#<?php echo $bg; ?>"><?php echo($row['risk_owner']); ?> &nbsp</TD>
-				<TD style="background-color:#<?php echo $bg; ?>"><?php echo($row['risk_status']); ?> &nbsp</TD>
-				<TD style="background-color:#<?php echo $bg; ?>"><?php echo($row['risk_note_date']); ?> &nbsp</TD>
+				<TD><?php echo($row['risk_probability']); ?>% &nbsp</TD>
+				<TD><?php echo $row['risk_impact'] . ' ' . $durnTypes[$row['risk_duration_type']]; ?> &nbsp</TD>
+				<TD><?php echo($row['risk_owner']); ?> &nbsp</TD>
+				<TD><?php echo($row['risk_status']); ?> &nbsp</TD>
+				<TD><?php echo($row['risk_note_date']); ?> &nbsp</TD>
 				</TR>
 				<?
 			}
@@ -161,6 +156,5 @@ $projects = array_merge(array(0=>array('project_id'=>0)), $projects);
 			print"<tr><TD COLSPAN='12'>&nbsp</TD></tr>";	
 		}
 }
-/*<TD style="background-color:#<?php echo $bg; ?>"><?php echo($row['risk_description']); ?> &nbsp</TD>*/
 ?>
 </table>

@@ -1,13 +1,16 @@
 <?php 
+if (!defined('DP_BASE_DIR')){
+  die('You should not access this file directly.');
+}
 /*
 Copyright (c) 2005 CaseySoftware, LLC <info@caseysoftware.com> 
 Initial Work:	Richard Thompson - Belfast, Northern Ireland 
 Developers:		Keith Casey - Washington, DC keith@caseysoftware.com 
 				Ivan Peevski - Adelaide, Australia cyberhorse@users.sourceforge.net
 */
-$del = isset($_POST['del']) ? $_POST['del'] : 0;
+$del = dPgetParam($_POST, 'del', 0);
 
-$risk = new CRisk();
+$risk = new dotProject_AddOn_Risks();
 
 if (($msg = $risk->bind( $_POST ))) {
 	$AppUI->setMsg( $msg, UI_MSG_ERROR );

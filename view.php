@@ -1,10 +1,7 @@
 <?php 
-/*
-Copyright (c) 2005 CaseySoftware, LLC <info@caseysoftware.com> 
-Initial Work:	Richard Thompson - Belfast, Northern Ireland 
-Developers:		Keith Casey - Washington, DC keith@caseysoftware.com 
-				Ivan Peevski - Adelaide, Australia cyberhorse@users.sourceforge.net
-*/
+if (!defined('DP_BASE_DIR')){
+  die('You should not access this file directly.');
+}
 
 // Add / Edit contact
 $risk_id = dPgetParam($_GET, 'risk_id', 0);
@@ -111,7 +108,7 @@ function delIt(){
 		</tr>
 		<tr>
 			<td align="right" nowrap="nowrap"><?php echo $AppUI->_('Impact');?>:</td>
-			<td class="hilite"><?php echo $risk['risk_impact']; ?> x <?php echo $riskDuration[$risk['risk_duration_type']]; ?></td>
+			<td class="hilite"><?php echo $risk['risk_impact']; ?> <?php echo $riskDuration[$risk['risk_duration_type']]; ?></td>
 		</tr>
 		<tr>
 			<td align="right" nowrap="nowrap"><?php echo $AppUI->_('Status');?>:</td>

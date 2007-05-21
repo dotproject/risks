@@ -1,15 +1,12 @@
-<?php /* CONTACTS $Id: contacts.class.php,v 1.1 2003/03/10 04:42:51 eddieajau Exp $ */
-/*
-Copyright (c) 2005 CaseySoftware, LLC <info@caseysoftware.com> 
-Initial Work:	Richard Thompson - Belfast, Northern Ireland 
-Developers:		Keith Casey - Washington, DC keith@caseysoftware.com 
-				Ivan Peevski - Adelaide, Australia cyberhorse@users.sourceforge.net
-*/
+<?php /* CONTACTS $Id: risks.class.php,v 1.1 2005/07/04 02:10:22 cyberhorse Exp $ */
+if (!defined('DP_BASE_DIR')){
+  die('You should not access this file directly.');
+}
 ##
-## CContact Class
+## Risks Class
 ##
 
-class CRisk {
+class dotProject_AddOn_Risks {
 	var $risk_id = NULL;
 	var $risk_project = NULL;
 	var $risk_task = NULL;

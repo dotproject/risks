@@ -1,12 +1,10 @@
 <?php 
-/*
-Copyright (c) 2005 CaseySoftware, LLC <info@caseysoftware.com> 
-Initial Work:	Richard Thompson - Belfast, Northern Ireland 
-Developers:		Keith Casey - Washington, DC keith@caseysoftware.com 
-				Ivan Peevski - Adelaide, Australia cyberhorse@users.sourceforge.net
-*/
+if (!defined('DP_BASE_DIR')){
+  die('You should not access this file directly.');
+}
 // Add / Edit contact
 $risk_id = isset( $HTTP_GET_VARS['risk_id'] ) ? $HTTP_GET_VARS['risk_id'] : 0;
+//$tab = dPgetParam($_GET, "tab", 0);
 
 // check permissions
 $denyEdit = getDenyEdit( $m, $risk_id );
@@ -159,7 +157,7 @@ function updateTasks()
 		<tr>
 			<td align="right">&nbsp;&nbsp;<?php echo $AppUI->_('Task');?>:</td>
 			<td>
-      <?php echo arraySelect($tasks, 'risk_task', 'size="1" class="text"', $risk['risk_task']); ?>
+      	<?php echo arraySelect($tasks, 'risk_task', 'size="1" class="text"', $risk['risk_task']); ?>
     	</td>
     </tr>
 		<tr>

@@ -1,10 +1,7 @@
 <?php
-/*
-Copyright (c) 2005 CaseySoftware, LLC <info@caseysoftware.com> 
-Initial Work:	Richard Thompson - Belfast, Northern Ireland 
-Developers:		Keith Casey - Washington, DC keith@caseysoftware.com 
-				Ivan Peevski - Adelaide, Australia cyberhorse@users.sourceforge.net
-*/
+if (!defined('DP_BASE_DIR')){
+  die('You should not access this file directly.');
+}
 GLOBAL $AppUI;
 
 // check permissions
