@@ -11,13 +11,9 @@ $note = dPgetParam($_POST, 'note', false);
 // check permissions
 $perms =& $AppUI->acl();
 $canEdit = $perms->checkModuleItem( 'risks', 'edit', $risk_id );
-if (! $canEdit)
+if (! $canEdit) {
 	$AppUI->redirect("m=public&a=access_denied");
-
-$viewNotes = false;
-$addNotes = false;
-
-echo 'vw_notes_add.php - '.$risk_id;
+}
 
 if ($note) {
 	$risk = new dotProject_AddOn_Risks($risk_id);
@@ -30,7 +26,7 @@ if ($note) {
 ?>
 <form name="editFrm" action="?m=risks&a=vw_note_add" method="post">
 	<input type="hidden" name="risk_id" value="<?php echo $risk_id;?>" />
-
+	<input type="hidden" name="note" value="true" />
 <table>
 <tr>
 	<td align="right" valign="top"><?php echo $AppUI->_('Note');?>:</td>

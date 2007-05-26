@@ -3,8 +3,7 @@ if (!defined('DP_BASE_DIR')){
   die('You should not access this file directly.');
 }
 // Add / Edit contact
-$risk_id = isset( $HTTP_GET_VARS['risk_id'] ) ? $HTTP_GET_VARS['risk_id'] : 0;
-//$tab = dPgetParam($_GET, "tab", 0);
+$risk_id = intval( dPgetParam( $_REQUEST, 'risk_id', 0 ) );
 
 // check permissions
 $denyEdit = getDenyEdit( $m, $risk_id );
@@ -27,7 +26,6 @@ $q->addTable('users');
 $q->leftJoin('contacts', 'c', 'user_contact = contact_id');
 $q->addOrder('contact_first_name, contact_last_name');
 $users = $q->loadHashList();
-//$users = db_loadHashList( $sql );
 
 $q->clear();
 $q->addQuery('project_id, project_name');

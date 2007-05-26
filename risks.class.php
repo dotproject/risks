@@ -1,4 +1,4 @@
-<?php /* CONTACTS $Id: risks.class.php,v 1.2 2007/05/21 01:57:50 caseydk Exp $ */
+<?php /* CONTACTS $Id: risks.class.php,v 1.3 2007/05/21 02:15:14 caseydk Exp $ */
 if (!defined('DP_BASE_DIR')){
   die('You should not access this file directly.');
 }
@@ -72,21 +72,32 @@ class dotProject_AddOn_Risks {
 		}
 	}
 	
-	function saveNote($userId, $riskDescription) {
+	function saveNote($riskId, $userId, $riskDescription) {
 		$q = new DBQuery();
 		$q->addTable('risk_notes');
-		$q->addInsert('risk_note_risk', $this->risk_id);
+		$q->addInsert('risk_note_risk', $riskId);
 		$q->addInsert('risk_note_creator', $userId);
 		$q->addInsert('risk_note_date', 'NOW()', false, true);
 		$q->addInsert('risk_note_description', $riskDescription);
-
-print_r($q);
 
 		if (!$q->exec()) {
 			return db_error();
 		} else { 
 			return true;
 		}
+	}
+	
+	function getNotes($riskId) {
+		$q = new DBQuery();
+		$q->addQuery('risk_notes.*');
+		$q->addQuery('CONCAT(contact_first_name, " ", contact_last_name) as risk_note_owner');
+		$q->addTable('risk_notes');
+		$q->leftJoin('users', 'u', 'risk_note_creator = user_id');
+		$q->leftJoin('contacts', 'c', 'user_contact = contact_id');
+		$q->addWhere('risk_note_risk = ' . $riskId);
+		$notes = $q->loadList();
+		
+		return $notes;
 	}
 }
 ?>
